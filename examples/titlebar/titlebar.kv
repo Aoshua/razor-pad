@@ -1,0 +1,33 @@
+#:kivy 2.0.0
+
+<TitleBar>:
+    ActionBar:
+        size_hint_x: None
+        pos_hint: {'top':1}
+        width: 800
+        height: 25
+        background_image: ''
+        background_color: [0.95,0.95,0.95,1]
+        ActionView:
+            use_separator: True
+            ActionPrevious:
+                title: 'App Title'
+                app_icon: 'App Icon'
+                with_previous: False
+                color: [ 0, 0, 0, 1]
+            ActionOverflow:
+            MyActionButton:
+                icon: 'img/app_minus_hover.png' if self.hovered else "img/app_control_init.png"
+                width: 30 if self.hovered else 30
+                on_press: app.Minus_app_button()
+                border: 10,10,10,10
+            MyActionButton:
+                icon: 'img/app_maxi_hover.png' if self.hovered else "img/app_control_init.png"
+                width: 30 if self.hovered else 30
+                on_press: app.MaxiMin_app_button()
+                border: 10,10,10,10
+            MyActionButton:
+                icon: 'img/app_close_hover.png' if self.hovered else "img/app_control_init.png"
+                width: 30 if self.hovered else 30
+                on_press: app.close_app_button()
+                border: 10,10,10,10
