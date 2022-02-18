@@ -1,2 +1,2 @@
 # razor-pad
-Tinkering with Kivy to build a simple .txt editor.
+Tinkering with tkinter to build a simple .txt editor.

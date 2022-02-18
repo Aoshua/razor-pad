@@ -8,6 +8,7 @@ from tkinter  import messagebox
 from tkinter import filedialog,simpledialog
 import tkinter
 from tkinter.scrolledtext import ScrolledText
+from turtle import title
 # from turtle import bgcolor
 import pyglet
 
@@ -37,9 +38,11 @@ def quitter(e):
 # Create custom title bar:d
 titleBar = Frame(root, bg=secondColor, relief="raised")
 titleBar.pack(expand=1, fill=X, padx=8, pady=4)
-# titleLabel = Label(titleBar, text="RazorPad", bg=secondColor, fg=textColor)
-# titleLabel.pack(side=LEFT, pady=4)
 titleBar.bind("<B1-Motion>", moveApp)
+
+mainIco = PhotoImage(file="img/icons8-knife-64.png")
+mainIcoLbl = Label(titleBar, image=mainIco, bg=secondColor, height=12)
+mainIcoLbl.pack(side=LEFT)
 
 closeIco = PhotoImage(file="img/icons8-w-close-24.png")
 closeBtn = Button(titleBar, image=closeIco, bg=secondColor, width=12, height=12, bd=0)
