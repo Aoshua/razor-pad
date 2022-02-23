@@ -19,17 +19,25 @@
 			const showFluentApi = ref(false)
 
 			const theme = ref('vs-dark')
+			const lang = ref('plaintext')
 
 			const cmdText = ref('')
 			const executeCmd = () => {
 				const sections = cmdText.value.split(' ')
-				console.log(sections)
-				if (sections[0] == 'theme') {
-					if (sections[1] == 'light') theme.value = 'vs'
-					else if (sections[1] == 'dark') theme.value = 'vs-dark'
-					else alert('Incorrect theme.')
-				} else {
-					alert('Incorrect command.')
+				switch(sections[0]){
+					case 'theme':
+						if (sections[1] == 'light') theme.value = 'vs'
+						else if (sections[1] == 'dark') theme.value = 'vs-dark'
+						else alert('Incorrect theme.')
+						break
+					case 'lang': {
+						const langs = monaco.languages.getLanguages().map(x => x.id)
+						if (!langs.includes(sections[1])) alert('Incorrect language.')
+						else lang.value = sections[1]
+						break
+					}
+					default:
+						alert('Incorrect command.')
 				}
 			}
 
@@ -41,7 +49,7 @@
 				editorInstance = monaco.editor.create(codeEditor.value!, {
 					automaticLayout: true,
 					insertSpaces: false,
-					language: "plaintext",
+					language: lang.value,
 					theme: theme.value,
 					value: "",
 					fontSize: 14,
@@ -66,7 +74,9 @@
 			})
 
 			watch(() => theme.value, () => editorInstance.updateOptions({theme: theme.value}))
+			watch(() => lang.value, () => monaco.editor.setModelLanguage(editorInstance.getModel()!, lang.value))
 
+			// Color Variables:
 			const ctrlColor = computed(() => theme.value.includes('dark') ? '#3c3c3c' : '#fff')
 			const ctrlAccColor = computed(() => theme.value.includes('dark') ? '#3c3c3c' : '#c8c8c8')
 			const cdColor = computed(() => theme.value.includes('dark') ? '#252526' : '#f3f3f3')
@@ -79,6 +89,7 @@
 				cdColor,
 				ctrlColor,
 				ctrlFontColor,
+				ctrlAccColor,
 				cmdText,
 				executeCmd
 			}
